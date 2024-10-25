@@ -22,6 +22,8 @@ function Main() {
   Set-AzContext -SubscriptionId $SubscriptionId 
   
   $url = "https://management.azure.com/subscriptions/$($SubscriptionId)/providers/Microsoft.Security/alerts/?api-version=2021-01-01"
+  #Use the below url if connecting to Azure Government.  Also change on line 70
+  #$url = "https://management.usgovcloudapi.net/subscriptions/$($SubscriptionId)/providers/Microsoft.Security/alerts/?api-version=2021-01-01"
 
   while ($url)
   {
@@ -64,6 +66,8 @@ function Dismiss-Alert($alert) {
   if (Should-BeDismissed($alert))
   {
     $dismissUrl = "https://management.azure.com/$($alert.id)/dismiss?api-version=2021-01-01"
+    #Use the below url for Azure Government
+    #$dismissUrl = "https://management.usgovcloudapi.net/$($alert.id)/dismiss?api-version=2021-01-01"
     Write-Host (Get-Date).ToString() "  " $dismissUrl
     $headers = Get-Headers
     $retryCount = 0
